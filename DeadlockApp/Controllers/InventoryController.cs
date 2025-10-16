@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
 using System.Diagnostics;
 
 namespace DeadlockApp.Controllers;
@@ -10,7 +8,6 @@ namespace DeadlockApp.Controllers;
 public class InventoryController : ControllerBase
 {
     private readonly ILogger<InventoryController> _logger;
-    private readonly TelemetryClient _telemetryClient;
     
     // Static locks for deadlock simulation - SAME LOCKS as OrdersController
     private static readonly object LockA = new object();
@@ -22,10 +19,9 @@ public class InventoryController : ControllerBase
     private static long _timeoutRequests = 0;
     private static long _deadlockDetected = 0;
 
-    public InventoryController(ILogger<InventoryController> logger, TelemetryClient telemetryClient)
+    public InventoryController(ILogger<InventoryController> logger)
     {
         _logger = logger;
-        _telemetryClient = telemetryClient;
     }
 
     [HttpPost("update")]
@@ -50,7 +46,7 @@ public class InventoryController : ControllerBase
                 updateId, stopwatch.ElapsedMilliseconds);
                 
             // Track custom metric
-            _telemetryClient.TrackMetric("InventoryUpdateTime", stopwatch.ElapsedMilliseconds);
+            _logger.LogInformation("Inventory updated successfully in {ElapsedMs}ms", stopwatch.ElapsedMilliseconds);
             
             return Ok(new { 
                 UpdateId = updateId, 
@@ -67,12 +63,8 @@ public class InventoryController : ControllerBase
             _logger.LogWarning(ex, "Inventory update {UpdateId} timed out after {ElapsedMs}ms", 
                 updateId, stopwatch.ElapsedMilliseconds);
                 
-            // Track timeout event
-            _telemetryClient.TrackEvent("InventoryUpdateTimeout", new Dictionary<string, string>
-            {
-                { "UpdateId", updateId.ToString() },
-                { "ElapsedMs", stopwatch.ElapsedMilliseconds.ToString() }
-            });
+            _logger.LogWarning("Inventory update timeout - UpdateId: {UpdateId}, ElapsedMs: {ElapsedMs}", 
+                updateId, stopwatch.ElapsedMilliseconds);
             
             return StatusCode(408, new { 
                 UpdateId = updateId, 

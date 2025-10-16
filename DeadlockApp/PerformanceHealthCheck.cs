@@ -1,18 +1,15 @@
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.ApplicationInsights;
 
 namespace DeadlockApp;
 
 public class PerformanceHealthCheck : IHealthCheck
 {
     private readonly ILogger<PerformanceHealthCheck> _logger;
-    private readonly TelemetryClient _telemetryClient;
     private readonly IConfiguration _configuration;
 
-    public PerformanceHealthCheck(ILogger<PerformanceHealthCheck> logger, TelemetryClient telemetryClient, IConfiguration configuration)
+    public PerformanceHealthCheck(ILogger<PerformanceHealthCheck> logger, IConfiguration configuration)
     {
         _logger = logger;
-        _telemetryClient = telemetryClient;
         _configuration = configuration;
     }
 
@@ -48,13 +45,9 @@ public class PerformanceHealthCheck : IHealthCheck
                 data["DeadlockSuspected"] = true;
                 data["DeadlockProbability"] = CalculateDeadlockProbability(metrics, threadPoolInfo);
                 
-                // Track deadlock suspicion
-                _telemetryClient.TrackEvent("DeadlockSuspected", new Dictionary<string, string>
-                {
-                    { "TimeoutRate", metrics.TimeoutRate.ToString("F2") },
-                    { "ThreadPoolUtilization", threadPoolInfo.UtilizationPercentage.ToString("F2") },
-                    { "AverageResponseTime", metrics.AverageResponseTime.ToString("F2") }
-                });
+                // Log deadlock suspicion instead of telemetry
+                _logger.LogWarning("Deadlock suspected - TimeoutRate: {TimeoutRate}%, ThreadPoolUtilization: {ThreadPoolUtilization}%, AverageResponseTime: {AverageResponseTime}ms", 
+                    metrics.TimeoutRate, threadPoolInfo.UtilizationPercentage, metrics.AverageResponseTime);
             }
 
             var description = GenerateHealthDescription(metrics, threadPoolInfo, healthStatus);
@@ -67,15 +60,15 @@ public class PerformanceHealthCheck : IHealthCheck
                 _ => HealthCheckResult.Unhealthy("Unknown health status")
             };
 
-            // Track health check result
-            _telemetryClient.TrackMetric("HealthCheckStatus", (int)healthStatus);
+            // Log health check result instead of telemetry
+            _logger.LogInformation("Health check completed - Status: {Status}, AvgResponseTime: {AvgResponseTime}ms", 
+                healthStatus, metrics.AverageResponseTime);
             
             return Task.FromResult(result);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error during health check");
-            _telemetryClient.TrackException(ex);
             return Task.FromResult(HealthCheckResult.Unhealthy("Health check failed", ex));
         }
     }

@@ -1,5 +1,3 @@
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 
@@ -9,7 +7,6 @@ public class PerformanceMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<PerformanceMiddleware> _logger;
-    private readonly TelemetryClient _telemetryClient;
     private readonly IConfiguration _configuration;
 
     // Thread-safe metrics tracking
@@ -23,11 +20,10 @@ public class PerformanceMiddleware
     private readonly double _timeoutThresholdMs;
     private readonly int _maxResponseTimeHistory = 1000;
 
-    public PerformanceMiddleware(RequestDelegate next, ILogger<PerformanceMiddleware> logger, TelemetryClient telemetryClient, IConfiguration configuration)
+    public PerformanceMiddleware(RequestDelegate next, ILogger<PerformanceMiddleware> logger, IConfiguration configuration)
     {
         _next = next;
         _logger = logger;
-        _telemetryClient = telemetryClient;
         _configuration = configuration;
         _timeoutThresholdMs = _configuration.GetValue<double>("PerformanceSettings:TimeoutThresholdMs", 5000);
     }
@@ -75,16 +71,6 @@ public class PerformanceMiddleware
             _logger.LogWarning("Request {RequestId} timed out after {ElapsedMs}ms: {Method} {Path}", 
                 requestId, stopwatch.ElapsedMilliseconds, context.Request.Method, path);
 
-            // Track timeout event
-            _telemetryClient.TrackEvent("RequestTimeout", new Dictionary<string, string>
-            {
-                { "RequestId", requestId },
-                { "Method", context.Request.Method },
-                { "Path", path },
-                { "ElapsedMs", stopwatch.ElapsedMilliseconds.ToString() },
-                { "TimeoutThresholdMs", _timeoutThresholdMs.ToString() }
-            });
-
             if (!context.Response.HasStarted)
             {
                 context.Response.StatusCode = 408; // Request Timeout
@@ -99,18 +85,6 @@ public class PerformanceMiddleware
             
             _logger.LogError(ex, "Request {RequestId} failed after {ElapsedMs}ms: {Method} {Path}", 
                 requestId, stopwatch.ElapsedMilliseconds, context.Request.Method, path);
-
-            // Track error event
-            _telemetryClient.TrackEvent("RequestError", new Dictionary<string, string>
-            {
-                { "RequestId", requestId },
-                { "Method", context.Request.Method },
-                { "Path", path },
-                { "ElapsedMs", stopwatch.ElapsedMilliseconds.ToString() },
-                { "ErrorType", ex.GetType().Name }
-            });
-
-            _telemetryClient.TrackException(ex);
             throw;
         }
         finally
@@ -130,36 +104,22 @@ public class PerformanceMiddleware
             ResponseTimes.TryDequeue(out _);
         }
 
-        // Track custom metrics
-        _telemetryClient.TrackMetric("ResponseTime", responseTimeMs);
-        _telemetryClient.TrackMetric("ConcurrentRequests", _concurrentRequests);
-
-        // Track response time by endpoint
-        var endpoint = GetEndpointName(path);
-        _telemetryClient.TrackMetric($"ResponseTime.{endpoint}", responseTimeMs);
+        // Track custom metrics via logging
+        _logger.LogDebug("Response time: {ResponseTime}ms, Concurrent requests: {ConcurrentRequests}", 
+            responseTimeMs, _concurrentRequests);
 
         // Check for potential deadlock indicators
         if (responseTimeMs > _timeoutThresholdMs * 0.8) // 80% of timeout threshold
         {
-            _telemetryClient.TrackEvent("SlowResponse", new Dictionary<string, string>
-            {
-                { "Path", path },
-                { "ResponseTimeMs", responseTimeMs.ToString() },
-                { "StatusCode", statusCode.ToString() },
-                { "ConcurrentRequests", _concurrentRequests.ToString() }
-            });
+            _logger.LogWarning("Slow response detected - Path: {Path}, ResponseTime: {ResponseTimeMs}ms, StatusCode: {StatusCode}, ConcurrentRequests: {ConcurrentRequests}", 
+                path, responseTimeMs, statusCode, _concurrentRequests);
         }
 
         // Check for deadlock suspicion based on response pattern
         if (IsDeadlockSuspected(responseTimeMs, path))
         {
-            _telemetryClient.TrackEvent("DeadlockSuspected", new Dictionary<string, string>
-            {
-                { "Path", path },
-                { "ResponseTimeMs", responseTimeMs.ToString() },
-                { "ConcurrentRequests", _concurrentRequests.ToString() },
-                { "TimeoutRate", GetTimeoutRate().ToString("F2") }
-            });
+            _logger.LogWarning("Deadlock suspected - Path: {Path}, ResponseTime: {ResponseTimeMs}ms, ConcurrentRequests: {ConcurrentRequests}, TimeoutRate: {TimeoutRate}%", 
+                path, responseTimeMs, _concurrentRequests, GetTimeoutRate());
         }
     }
 

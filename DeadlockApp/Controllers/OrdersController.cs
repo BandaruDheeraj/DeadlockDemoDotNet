@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
 using System.Diagnostics;
 
 namespace DeadlockApp.Controllers;
@@ -10,7 +8,6 @@ namespace DeadlockApp.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly ILogger<OrdersController> _logger;
-    private readonly TelemetryClient _telemetryClient;
     
     // Static locks for deadlock simulation
     private static readonly object LockA = new object();
@@ -22,10 +19,9 @@ public class OrdersController : ControllerBase
     private static long _timeoutRequests = 0;
     private static long _deadlockDetected = 0;
 
-    public OrdersController(ILogger<OrdersController> logger, TelemetryClient telemetryClient)
+    public OrdersController(ILogger<OrdersController> logger)
     {
         _logger = logger;
-        _telemetryClient = telemetryClient;
     }
 
     [HttpPost("process")]
@@ -50,7 +46,7 @@ public class OrdersController : ControllerBase
                 orderId, stopwatch.ElapsedMilliseconds);
                 
             // Track custom metric
-            _telemetryClient.TrackMetric("OrderProcessingTime", stopwatch.ElapsedMilliseconds);
+            _logger.LogInformation("Order processed successfully in {ElapsedMs}ms", stopwatch.ElapsedMilliseconds);
             
             return Ok(new { 
                 OrderId = orderId, 
@@ -67,12 +63,8 @@ public class OrdersController : ControllerBase
             _logger.LogWarning(ex, "Order {OrderId} processing timed out after {ElapsedMs}ms", 
                 orderId, stopwatch.ElapsedMilliseconds);
                 
-            // Track timeout event
-            _telemetryClient.TrackEvent("OrderProcessingTimeout", new Dictionary<string, string>
-            {
-                { "OrderId", orderId.ToString() },
-                { "ElapsedMs", stopwatch.ElapsedMilliseconds.ToString() }
-            });
+            _logger.LogWarning("Order processing timeout - OrderId: {OrderId}, ElapsedMs: {ElapsedMs}", 
+                orderId, stopwatch.ElapsedMilliseconds);
             
             return StatusCode(408, new { 
                 OrderId = orderId, 

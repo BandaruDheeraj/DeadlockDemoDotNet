@@ -13,7 +13,13 @@
       "Bash(dotnet publish:*)",
       "Bash(az webapp config show:*)",
       "Bash(az webapp config set:*)",
-      "Bash(dotnet restore)"
+      "Bash(dotnet restore)",
+      "Bash(az webapp deployment source config-zip:*)",
+      "Bash(az webapp stop:*)",
+      "Bash(az webapp start:*)",
+      "Bash(az webapp config appsettings delete:*)",
+      "Bash(dotnet run:*)",
+      "Bash(bin/Debug/net9.0/DeadlockApp.exe --urls \"http://localhost:5003\")"
     ],
     "deny": [],
     "ask": []

@@ -11,7 +11,7 @@
     "ActionGroupName":  "deadlock-demo-app-action-group",
     "WorkspaceName":  "deadlock-demo-workspace",
     "ResourceGroupName":  "deadlock-demo-rg",
-    "BaselineAverageResponseTime":  168.19,
+    "BaselineAverageResponseTime":  150.67,
     "BaselineP95ResponseTime":  null,
-    "BaselineMaxResponseTime":  430
+    "BaselineMaxResponseTime":  566
 }

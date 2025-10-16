@@ -1,0 +1,8 @@
+<step title="Incoming Request" date="2025-10-15T21:37:55.795" instance="2b11e6" url="/logstream" method="GET" type="request" pid="4232,2,7" Accept-Encoding="identity" Authorization="Bea..." Host="deadlock-demo-app.scm.azurewebsites.net" User-Agent="AZURECLI/2.70.0 (MSI)" x-ms-client-request-id="245f3527-aa0f-11f0-95f1-8038fb0f4edd" X-ARR-LOG-ID="245f3527-aa0f-11f0-95f1-8038fb0f4edd" CLIENT-IP="45.147.205.239:15638" X-SITE-DEPLOYMENT-ID="deadlock-demo-app" WAS-DEFAULT-HOSTNAME="deadlock-demo-app.scm.azurewebsites.net" X-Forwarded-Proto="https" X-AppService-Proto="https" X-Forwarded-TlsVersion="1.3" X-WAWS-Unencoded-URL="/logstream" >
+  <step title="LogStreamHandler.BeginProcessRequest" date="2025-10-15T21:37:57.010" >
+    <step title="LockFile &apos;C:\home\site\locks\hooks.lock&apos; acquired" date="2025-10-15T21:37:57.574" /><!-- duration: 14ms -->
+    <step title="LockFile &apos;C:\home\site\locks\hooks.lock&apos; released" date="2025-10-15T21:37:57.700" /><!-- duration: 0ms -->
+  </step><!-- duration: 703ms -->
+  <step title="LogStreamHandler.EndProcessRequest" date="2025-10-15T21:40:55.086" /><!-- duration: 16ms -->
+  <step title="Outgoing response" date="2025-10-15T21:40:55.261" type="response" statusCode="200" statusText="OK" Server="Microsoft-IIS/10.0" Cache-Control="private" X-AspNet-Version="4.0.30319" Content-Type="text/plain; charset=utf-8" /><!-- duration: 13ms -->
+</step><!-- duration: 179478ms -->

@@ -1,0 +1,58 @@
+<step title="BackgroundTrace" date="2025-10-15T22:17:27.112" instance="c41bc2" url="/api/zipdeploy" method="POST" >
+  <step title="Updating shutdown sentinel last write time" date="2025-10-15T22:17:27.127" SemaphoreCount="7" /><!-- duration: 0ms -->
+  <step title="LockFile &apos;C:\home\site\locks\deployments.lock&apos; acquired" date="2025-10-15T22:17:27.149" /><!-- duration: 0ms -->
+  <step title="Creating temporary deployment" date="2025-10-15T22:17:27.159" /><!-- duration: 16ms -->
+  <step title="Performing fetch based deployment" date="2025-10-15T22:17:27.190" >
+    <step title="Fetching changes." date="2025-10-15T22:17:27.268" /><!-- duration: 21ms -->
+    <step title="Starting LocalZipHandler" date="2025-10-15T22:17:27.289" /><!-- duration: 11ms -->
+    <step title="Cleaning up temp folders from previous zip deployments and extracting pushed zip file C:\local\Temp\zipdeploy\zh5wk2iy.zip (2.15 MB) to C:\local\Temp\zipdeploy\extracted" date="2025-10-15T22:17:27.331" /><!-- duration: 18ms -->
+    <step title="Cleaning up temp folders from previous zip deployments and extracting pushed zip file C:\local\Temp\zipdeploy\zh5wk2iy.zip (2.15 MB) to C:\local\Temp\zipdeploy\extracted" date="2025-10-15T22:17:27.349" >
+      <step title="Renaming extractTargetDirectory(C:\local\Temp\zipdeploy\extracted) to tempDirectory(C:\local\Temp\zipdeploy\maxvcsi0.lwi)" date="2025-10-15T22:17:27.349" /><!-- duration: 13ms -->
+      <step title="Extracting 68 entries to C:\local\Temp\zipdeploy\extracted directory" date="2025-10-15T22:17:27.440" >
+        <step title="Extracting to C:\local\Temp\zipdeploy\extracted\publish\appsettings.Development.json ..." date="2025-10-15T22:17:27.459" /><!-- duration: 12ms -->
+        <step title="Extracting to C:\local\Temp\zipdeploy\extracted\publish\appsettings.json ..." date="2025-10-15T22:17:27.471" /><!-- duration: 0ms -->
+        <step title="Extracting to C:\local\Temp\zipdeploy\extracted\publish\appsettings.Production.json ..." date="2025-10-15T22:17:27.471" /><!-- duration: 16ms -->
+        <step title="Extracting to C:\local\Temp\zipdeploy\extracted\publish\DeadlockApp.deps.json ..." date="2025-10-15T22:17:27.487" /><!-- duration: 0ms -->
+        <step title="Extracting to C:\local\Temp\zipdeploy\extracted\publish\DeadlockApp.runtimeconfig.json ..." date="2025-10-15T22:17:27.505" /><!-- duration: 0ms -->
+        <step title="Omitting extracting file traces ..." date="2025-10-15T22:17:27.505" /><!-- duration: 0ms -->
+        <step title="Extracting to C:\local\Temp\zipdeploy\extracted\web.config ..." date="2025-10-15T22:17:27.972" /><!-- duration: 0ms -->
+      </step><!-- duration: 532ms -->
+    </step><!-- duration: 643ms -->
+    <step title="Before sending BuildRequestReceived status to /api/updatedeploystatus" date="2025-10-15T22:17:27.992" /><!-- duration: 10ms -->
+    <step title="DeploymentManager.Deploy(id:c288413f7e364685804bb00b9074e476)" date="2025-10-15T22:17:28.002" >
+      <step title="Collecting changeset information" date="2025-10-15T22:17:28.002" /><!-- duration: 78ms -->
+      <step title="Updating submodules" date="2025-10-15T22:17:28.099" >
+        <step title="Updating submodules." date="2025-10-15T22:17:28.143" /><!-- duration: 0ms -->
+      </step><!-- duration: 44ms -->
+      <step title="Preparing deployment for commit id &apos;c288413f7e&apos;." date="2025-10-15T22:17:28.210" /><!-- duration: 0ms -->
+      <step title="Determining deployment builder" date="2025-10-15T22:17:28.270" >
+        <step title="Builder is BasicBuilder" date="2025-10-15T22:17:28.270" /><!-- duration: 14ms -->
+      </step><!-- duration: 29ms -->
+      <step title="Copying SSH keys" date="2025-10-15T22:17:28.315" /><!-- duration: 0ms -->
+      <step title="Building" date="2025-10-15T22:17:28.315" >
+        <step title="Generating deployment script." date="2025-10-15T22:17:28.411" /><!-- duration: 0ms -->
+        <step title="Generating deployment script" date="2025-10-15T22:17:28.424" >
+          <step title="Using cached version of the deployment script for command: -y --no-dot-deployment -r &quot;C:\local\Temp\zipdeploy\extracted&quot; -o &quot;C:\home\site\deployments\tools&quot; --basic --sitePath &quot;C:\local\Temp\zipdeploy\extracted&quot;" date="2025-10-15T22:17:28.441" /><!-- duration: 20ms -->
+          <step title="Using cached version of deployment script (command: &apos;azure -y --no-dot-deployment -r &quot;C:\local\Temp\zipdeploy\extracted&quot; -o &quot;C:\home\site\deployments\tools&quot; --basic --sitePath &quot;C:\local\Temp\zipdeploy\extracted&quot;&apos;)." date="2025-10-15T22:17:28.471" /><!-- duration: 0ms -->
+        </step><!-- duration: 66ms -->
+        <step title="Running deployment command..." date="2025-10-15T22:17:28.518" /><!-- duration: 0ms -->
+        <step title="Command: &quot;C:\home\site\deployments\tools\deploy.cmd&quot;" date="2025-10-15T22:17:28.534" /><!-- duration: 0ms -->
+        <step title="Executing external process" date="2025-10-15T22:17:28.550" type="process" path="starter.cmd" arguments="&quot;C:\home\site\deployments\tools\deploy.cmd&quot;" >
+          <step title="Handling Basic Web Site deployment." date="2025-10-15T22:17:29.034" /><!-- duration: 17ms -->
+          <step title="Creating app_offline.htm" date="2025-10-15T22:17:31.956" /><!-- duration: 16ms -->
+          <step title="KuduSync.NET from: &apos;C:\local\Temp\zipdeploy\extracted&apos; to: &apos;C:\home\site\wwwroot&apos;" date="2025-10-15T22:17:31.971" /><!-- duration: 0ms -->
+          <step title="Deleting app_offline.htm" date="2025-10-15T22:17:31.991" /><!-- duration: 11ms -->
+          <step title="Finished successfully." date="2025-10-15T22:17:32.022" /><!-- duration: 12ms -->
+        </step><!-- duration: 3625ms -->
+        <step title="Running post deployment command(s)..." date="2025-10-15T22:17:32.444" /><!-- duration: 0ms -->
+        <step title="Triggering recycle (preview mode disabled)." date="2025-10-15T22:17:32.565" /><!-- duration: 0ms -->
+        <step title="Ignoring FS watcher based recycle request as this is a classic Windows app." date="2025-10-15T22:17:32.565" /><!-- duration: 20ms -->
+        <step title="Deployment successful. DEPLOYMENTINFO: deploymentPath = ZipDeploy. Extract zip. , deployer = ZipDeploy, os = windows, sku = Standard, siteName = deadlock-demo-app, siteHostName = deadlock-demo-app.azurewebsites.net, deploymentStatus = Success" date="2025-10-15T22:17:32.737" /><!-- duration: 0ms -->
+      </step><!-- duration: 4610ms -->
+    </step><!-- duration: 4922ms -->
+    <step title="Cleaning up temp files" date="2025-10-15T22:17:32.945" /><!-- duration: 0ms -->
+    <step title="Skip function trigger and logicapp sync because function is not enabled." date="2025-10-15T22:17:32.956" /><!-- duration: 19ms -->
+  </step><!-- duration: 5828ms -->
+  <step title="LockFile &apos;C:\home\site\locks\deployments.lock&apos; released" date="2025-10-15T22:17:33.034" /><!-- duration: 0ms -->
+  <step title="Deleting shutdown sentinel file" date="2025-10-15T22:17:33.085" SemaphoreCount="8" /><!-- duration: 12ms -->
+</step><!-- duration: 5984ms -->
