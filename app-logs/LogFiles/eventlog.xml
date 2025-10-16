@@ -1,0 +1,493 @@
+<Events><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:37:18Z"/><EventRecordID>20812218</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Category: Microsoft.AspNetCore.Hosting.Diagnostics
+EventId: 6
+
+Application startup exception
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:37:18Z"/><EventRecordID>20812250</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Category: Microsoft.Extensions.Hosting.Internal.Host
+EventId: 11
+
+Hosting failed to start
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1026</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:37:18Z"/><EventRecordID>20812296</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application: w3wp.exe
+CoreCLR Version: 9.0.525.21509
+.NET Version: 9.0.5
+Description: The process was terminated due to an unhandled exception.
+Exception Info: System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1018</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:37:18Z"/><EventRecordID>20812312</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' hit unexpected managed exception, exception code = '0xe0434352'. First 30KB characters of captured stdout and stderr logs:
+crit: Microsoft.AspNetCore.Hosting.Diagnostics[6]
+      Application startup exception
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+fail: Microsoft.Extensions.Hosting.Internal.Host[11]
+      Hosting failed to start
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+         at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+Unhandled exception. System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data><Data>Process Id: 6132.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1007</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:37:18Z"/><EventRecordID>20812328</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' failed to load coreclr. Exception message:
+CLR worker thread exited prematurely</Data><Data>Process Id: 6132.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="W3SVC-WP"/><EventID>2299</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:42:35Z"/><EventRecordID>21129296</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Worker Process requested recycle due to 'Startup Failures' limit.
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:43:41Z"/><EventRecordID>21195171</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Category: Microsoft.AspNetCore.Hosting.Diagnostics
+EventId: 6
+
+Application startup exception
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:43:41Z"/><EventRecordID>21195203</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Category: Microsoft.Extensions.Hosting.Internal.Host
+EventId: 11
+
+Hosting failed to start
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1026</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:43:41Z"/><EventRecordID>21195250</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application: w3wp.exe
+CoreCLR Version: 9.0.525.21509
+.NET Version: 9.0.5
+Description: The process was terminated due to an unhandled exception.
+Exception Info: System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1018</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:43:41Z"/><EventRecordID>21195265</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' hit unexpected managed exception, exception code = '0xe0434352'. First 30KB characters of captured stdout and stderr logs:
+crit: Microsoft.AspNetCore.Hosting.Diagnostics[6]
+      Application startup exception
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+fail: Microsoft.Extensions.Hosting.Internal.Host[11]
+      Hosting failed to start
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+         at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+Unhandled exception. System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data><Data>Process Id: 6452.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1007</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:43:41Z"/><EventRecordID>21195296</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' failed to load coreclr. Exception message:
+CLR worker thread exited prematurely</Data><Data>Process Id: 6452.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="W3SVC-WP"/><EventID>2299</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:48:44Z"/><EventRecordID>21498203</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Worker Process requested recycle due to 'Startup Failures' limit.
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:48:55Z"/><EventRecordID>21509234</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Category: Microsoft.AspNetCore.Hosting.Diagnostics
+EventId: 6
+
+Application startup exception
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:48:55Z"/><EventRecordID>21509250</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Category: Microsoft.Extensions.Hosting.Internal.Host
+EventId: 11
+
+Hosting failed to start
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1026</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:48:55Z"/><EventRecordID>21509296</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application: w3wp.exe
+CoreCLR Version: 9.0.525.21509
+.NET Version: 9.0.5
+Description: The process was terminated due to an unhandled exception.
+Exception Info: System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1018</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:48:55Z"/><EventRecordID>21509312</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' hit unexpected managed exception, exception code = '0xe0434352'. First 30KB characters of captured stdout and stderr logs:
+crit: Microsoft.AspNetCore.Hosting.Diagnostics[6]
+      Application startup exception
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+fail: Microsoft.Extensions.Hosting.Internal.Host[11]
+      Hosting failed to start
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+         at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+Unhandled exception. System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data><Data>Process Id: 7160.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1007</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T20:48:55Z"/><EventRecordID>21509328</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' failed to load coreclr. Exception message:
+CLR worker thread exited prematurely</Data><Data>Process Id: 7160.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1012</EventID><Level>4</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:40:48Z"/><EventRecordID>24621625</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application 'C:\home\site\wwwroot\' was recycled after detecting app_offline.htm.</Data><Data>Process Id: 7160.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1012</EventID><Level>4</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:40:49Z"/><EventRecordID>24622765</EventRecordID><Channel>Application</Channel><Computer>DW0SDWK000MBB</Computer><Security/></System><EventData><Data>Application 'C:\home\site\wwwroot\' was recycled after detecting app_offline.htm.</Data><Data>Process Id: 7160.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:41:07Z"/><EventRecordID>33138390</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Category: Microsoft.AspNetCore.Hosting.Diagnostics
+EventId: 6
+
+Application startup exception
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:41:07Z"/><EventRecordID>33138390</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Category: Microsoft.Extensions.Hosting.Internal.Host
+EventId: 11
+
+Hosting failed to start
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1026</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:41:07Z"/><EventRecordID>33138437</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Application: w3wp.exe
+CoreCLR Version: 9.0.525.21509
+.NET Version: 9.0.5
+Description: The process was terminated due to an unhandled exception.
+Exception Info: System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1018</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:41:07Z"/><EventRecordID>33138437</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' hit unexpected managed exception, exception code = '0xe0434352'. First 30KB characters of captured stdout and stderr logs:
+crit: Microsoft.AspNetCore.Hosting.Diagnostics[6]
+      Application startup exception
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+fail: Microsoft.Extensions.Hosting.Internal.Host[11]
+      Hosting failed to start
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+         at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+Unhandled exception. System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data><Data>Process Id: 3348.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1007</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:41:07Z"/><EventRecordID>33138453</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' failed to load coreclr. Exception message:
+CLR worker thread exited prematurely</Data><Data>Process Id: 3348.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="W3SVC-WP"/><EventID>2303</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:44:18Z"/><EventRecordID>33329812</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>deadlock-demo-app</Data><Binary>02000780</Binary></EventData></Event><Event><System><Provider Name="W3SVC-WP"/><EventID>2303</EventID><Level>2</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:44:18Z"/><EventRecordID>33329843</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>deadlock-demo-app</Data><Binary>02000780</Binary></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:44:21Z"/><EventRecordID>33333296</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Category: Microsoft.AspNetCore.Hosting.Diagnostics
+EventId: 6
+
+Application startup exception
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1000</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:44:21Z"/><EventRecordID>33333328</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Category: Microsoft.Extensions.Hosting.Internal.Host
+EventId: 11
+
+Hosting failed to start
+
+Exception: 
+System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+</Data></EventData></Event><Event><System><Provider Name=".NET Runtime"/><EventID>1026</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:44:22Z"/><EventRecordID>33333375</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Application: w3wp.exe
+CoreCLR Version: 9.0.525.21509
+.NET Version: 9.0.5
+Description: The process was terminated due to an unhandled exception.
+Exception Info: System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1018</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:44:22Z"/><EventRecordID>33333375</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' hit unexpected managed exception, exception code = '0xe0434352'. First 30KB characters of captured stdout and stderr logs:
+crit: Microsoft.AspNetCore.Hosting.Diagnostics[6]
+      Application startup exception
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+fail: Microsoft.Extensions.Hosting.Internal.Host[11]
+      Hosting failed to start
+      System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+         at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+         at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+         at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+         at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+         at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+Unhandled exception. System.InvalidOperationException: Unable to resolve service for type 'Microsoft.ApplicationInsights.TelemetryClient' while attempting to activate 'DeadlockApp.PerformanceMiddleware'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ConstructorMatcher.CreateInstance(IServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(IServiceProvider provider, Type instanceType, Object[] parameters)
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.ReflectionMiddlewareBinder.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplication.Microsoft.AspNetCore.Builder.IApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.WireSourcePipeline.CreateMiddleware(RequestDelegate next)
+   at Microsoft.AspNetCore.Builder.ApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.&lt;StartAsync&gt;g__LogAndRethrow|14_3(&lt;&gt;c__DisplayClass14_0&amp;)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Microsoft.AspNetCore.Builder.WebApplication.Run(String url)
+   at Program.&lt;Main&gt;$(String[] args) in C:\Users\dbandaru\OneDrive - Microsoft\Desktop\Projects\sre-agent-test-apps\DevDaysWarsawDemos\DeadlockDemo\DeadlockApp\Program.cs:line 83
+</Data><Data>Process Id: 5392.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event><Event><System><Provider Name="IIS AspNetCore Module V2"/><EventID>1007</EventID><Level>1</Level><Task>0</Task><Keywords>Keywords</Keywords><TimeCreated SystemTime="2025-10-15T21:44:22Z"/><EventRecordID>33333390</EventRecordID><Channel>Application</Channel><Computer>dw1sdwk000P4P</Computer><Security/></System><EventData><Data>Application '/LM/W3SVC/1865941644/ROOT' with physical root 'C:\home\site\wwwroot\' failed to load coreclr. Exception message:
+CLR worker thread exited prematurely</Data><Data>Process Id: 5392.</Data><Data>File Version: 19.0.25119.5. Description: IIS ASP.NET Core Module V2 Request Handler. Commit: </Data></EventData></Event></Events>

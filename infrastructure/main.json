@@ -1,0 +1,410 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.37.4.10188",
+      "templateHash": "8981881646332558135"
+    }
+  },
+  "parameters": {
+    "appServiceName": {
+      "type": "string",
+      "defaultValue": "deadlock-demo-app",
+      "metadata": {
+        "description": "Name of the App Service"
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources"
+      }
+    },
+    "appServicePlanSku": {
+      "type": "string",
+      "defaultValue": "S1",
+      "allowedValues": [
+        "S1",
+        "S2",
+        "S3",
+        "P1v2",
+        "P2v2",
+        "P3v2"
+      ],
+      "metadata": {
+        "description": "App Service Plan SKU"
+      }
+    },
+    "workspaceName": {
+      "type": "string",
+      "defaultValue": "deadlock-demo-workspace",
+      "metadata": {
+        "description": "Application Insights Workspace name"
+      }
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().name]",
+      "metadata": {
+        "description": "Resource group name for outputs"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2023-01-01",
+      "name": "[format('{0}-plan', parameters('appServiceName'))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "[parameters('appServicePlanSku')]"
+      },
+      "properties": {
+        "reserved": false
+      }
+    },
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2023-09-01",
+      "name": "[parameters('workspaceName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "sku": {
+          "name": "PerGB2018"
+        },
+        "retentionInDays": 30
+      }
+    },
+    {
+      "type": "Microsoft.Insights/components",
+      "apiVersion": "2020-02-02",
+      "name": "[format('{0}-ai', parameters('appServiceName'))]",
+      "location": "[parameters('location')]",
+      "kind": "web",
+      "properties": {
+        "Application_Type": "web",
+        "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2023-01-01",
+      "name": "[parameters('appServiceName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', format('{0}-plan', parameters('appServiceName')))]",
+        "httpsOnly": true,
+        "siteConfig": {
+          "netFrameworkVersion": "v9.0",
+          "ftpsState": "Disabled",
+          "minTlsVersion": "1.2",
+          "appSettings": [
+            {
+              "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+              "value": "[reference(resourceId('Microsoft.Insights/components', format('{0}-ai', parameters('appServiceName'))), '2020-02-02').ConnectionString]"
+            },
+            {
+              "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+              "value": "~3"
+            },
+            {
+              "name": "EnableDeadlockSimulation",
+              "value": "false"
+            },
+            {
+              "name": "PerformanceSettings__TimeoutThresholdMs",
+              "value": "5000"
+            },
+            {
+              "name": "PerformanceSettings__HealthyResponseTimeMs",
+              "value": "500"
+            },
+            {
+              "name": "PerformanceSettings__DegradedResponseTimeMs",
+              "value": "2000"
+            },
+            {
+              "name": "PerformanceSettings__DeadlockProbabilityPercent",
+              "value": "15"
+            }
+          ],
+          "healthCheckPath": "/health"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/components', format('{0}-ai', parameters('appServiceName')))]",
+        "[resourceId('Microsoft.Web/serverfarms', format('{0}-plan', parameters('appServiceName')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites/slots",
+      "apiVersion": "2023-01-01",
+      "name": "[format('{0}/{1}', parameters('appServiceName'), 'staging')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', format('{0}-plan', parameters('appServiceName')))]",
+        "siteConfig": {
+          "netFrameworkVersion": "v9.0",
+          "appSettings": [
+            {
+              "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+              "value": "[reference(resourceId('Microsoft.Insights/components', format('{0}-ai', parameters('appServiceName'))), '2020-02-02').ConnectionString]"
+            },
+            {
+              "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+              "value": "~3"
+            },
+            {
+              "name": "EnableDeadlockSimulation",
+              "value": "false"
+            },
+            {
+              "name": "PerformanceSettings__TimeoutThresholdMs",
+              "value": "5000"
+            },
+            {
+              "name": "PerformanceSettings__HealthyResponseTimeMs",
+              "value": "500"
+            },
+            {
+              "name": "PerformanceSettings__DegradedResponseTimeMs",
+              "value": "2000"
+            },
+            {
+              "name": "PerformanceSettings__DeadlockProbabilityPercent",
+              "value": "15"
+            }
+          ],
+          "healthCheckPath": "/health"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/components', format('{0}-ai', parameters('appServiceName')))]",
+        "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]",
+        "[resourceId('Microsoft.Web/serverfarms', format('{0}-plan', parameters('appServiceName')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Insights/actionGroups",
+      "apiVersion": "2023-01-01",
+      "name": "[format('{0}-action-group', parameters('appServiceName'))]",
+      "location": "global",
+      "properties": {
+        "groupShortName": "DeadlockDemo",
+        "enabled": true,
+        "emailReceivers": [
+          {
+            "name": "SRE Team",
+            "emailAddress": "sre-team@example.com",
+            "useCommonAlertSchema": true
+          }
+        ],
+        "webhookReceivers": []
+      }
+    },
+    {
+      "type": "Microsoft.Insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[format('{0}-performance-degradation', parameters('appServiceName'))]",
+      "location": "global",
+      "properties": {
+        "description": "Alert when average response time exceeds 2000ms for 5 minutes - triggers SRE Agent remediation",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+        ],
+        "evaluationFrequency": "PT1M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria",
+          "allOf": [
+            {
+              "name": "ResponseTime",
+              "metricName": "HttpResponseTime",
+              "operator": "GreaterThan",
+              "threshold": 2000,
+              "timeAggregation": "Average",
+              "criterionType": "StaticThresholdCriterion"
+            }
+          ]
+        },
+        "actions": [
+          {
+            "actionGroupId": "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]",
+            "webHookProperties": {
+              "remediation_type": "slot_swap",
+              "target_slot": "staging",
+              "verification_timeout_minutes": "5",
+              "app_name": "[parameters('appServiceName')]",
+              "resource_group": "[parameters('resourceGroupName')]",
+              "alert_type": "performance_degradation"
+            }
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]",
+        "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[format('{0}-thread-pool-exhaustion', parameters('appServiceName'))]",
+      "location": "global",
+      "properties": {
+        "description": "Alert when thread pool utilization is high - potential deadlock indicator",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+        ],
+        "evaluationFrequency": "PT1M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria",
+          "allOf": [
+            {
+              "name": "ThreadPoolUtilization",
+              "metricName": "CpuTime",
+              "operator": "GreaterThan",
+              "threshold": 60,
+              "timeAggregation": "Average",
+              "criterionType": "StaticThresholdCriterion"
+            }
+          ]
+        },
+        "actions": [
+          {
+            "actionGroupId": "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]"
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]",
+        "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[format('{0}-timeout-rate', parameters('appServiceName'))]",
+      "location": "global",
+      "properties": {
+        "description": "Alert when request timeout rate exceeds 10% - deadlock indicator",
+        "severity": 2,
+        "enabled": true,
+        "scopes": [
+          "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+        ],
+        "evaluationFrequency": "PT1M",
+        "windowSize": "PT5M",
+        "criteria": {
+          "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria",
+          "allOf": [
+            {
+              "name": "ErrorRate",
+              "metricName": "Http5xx",
+              "operator": "GreaterThan",
+              "threshold": 10,
+              "timeAggregation": "Average",
+              "criterionType": "StaticThresholdCriterion"
+            }
+          ]
+        },
+        "actions": [
+          {
+            "actionGroupId": "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]"
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]",
+        "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Insights/metricAlerts",
+      "apiVersion": "2018-03-01",
+      "name": "[format('{0}-health-check-failure', parameters('appServiceName'))]",
+      "location": "global",
+      "properties": {
+        "description": "Alert when health checks fail - immediate attention required",
+        "severity": 1,
+        "enabled": true,
+        "scopes": [
+          "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+        ],
+        "evaluationFrequency": "PT1M",
+        "windowSize": "PT1M",
+        "criteria": {
+          "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria",
+          "allOf": [
+            {
+              "name": "HealthCheckFailure",
+              "metricName": "Http4xx",
+              "operator": "GreaterThan",
+              "threshold": 0,
+              "timeAggregation": "Total",
+              "criterionType": "StaticThresholdCriterion"
+            }
+          ]
+        },
+        "actions": [
+          {
+            "actionGroupId": "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]"
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Insights/actionGroups', format('{0}-action-group', parameters('appServiceName')))]",
+        "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "appServiceName": {
+      "type": "string",
+      "value": "[parameters('appServiceName')]"
+    },
+    "appServiceUrl": {
+      "type": "string",
+      "value": "[format('https://{0}', reference(resourceId('Microsoft.Web/sites', parameters('appServiceName')), '2023-01-01').defaultHostName)]"
+    },
+    "stagingUrl": {
+      "type": "string",
+      "value": "[format('https://{0}', replace(reference(resourceId('Microsoft.Web/sites', parameters('appServiceName')), '2023-01-01').defaultHostName, '.azurewebsites.net', '-staging.azurewebsites.net'))]"
+    },
+    "applicationInsightsConnectionString": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Insights/components', format('{0}-ai', parameters('appServiceName'))), '2020-02-02').ConnectionString]"
+    },
+    "applicationInsightsInstrumentationKey": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Insights/components', format('{0}-ai', parameters('appServiceName'))), '2020-02-02').InstrumentationKey]"
+    },
+    "workspaceName": {
+      "type": "string",
+      "value": "[parameters('workspaceName')]"
+    },
+    "workspaceId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]"
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "value": "[parameters('resourceGroupName')]"
+    },
+    "actionGroupName": {
+      "type": "string",
+      "value": "[format('{0}-action-group', parameters('appServiceName'))]"
+    }
+  }
+}

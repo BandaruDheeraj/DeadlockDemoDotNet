@@ -1,0 +1,74 @@
+{
+  "title": "Performance Degradation - Slot Swap Remediation",
+  "description": "Automated remediation instructions for Azure SRE Agent when performance degradation is detected",
+  "remediation_type": "slot_swap",
+  "priority": "high",
+  "steps": [
+    {
+      "step": 1,
+      "action": "verify_staging_health",
+      "description": "Check staging slot health status and compare with production",
+      "command": "az webapp show --name {app_name} --resource-group {resource_group} --slot staging --query 'state'",
+      "expected_result": "Running",
+      "timeout_seconds": 30
+    },
+    {
+      "step": 2,
+      "action": "compare_metrics",
+      "description": "Compare performance metrics between production and staging slots",
+      "command": "az monitor metrics list --resource {app_name} --metric 'HttpResponseTime' --slot production vs staging",
+      "expected_result": "staging_performance_better",
+      "timeout_seconds": 60
+    },
+    {
+      "step": 3,
+      "action": "execute_slot_swap",
+      "description": "Execute slot swap from production to staging",
+      "command": "az webapp deployment slot swap --name {app_name} --resource-group {resource_group} --slot staging --target-slot production",
+      "expected_result": "success",
+      "timeout_seconds": 300
+    },
+    {
+      "step": 4,
+      "action": "verify_swap_success",
+      "description": "Verify production is healthy after slot swap",
+      "command": "curl -f https://{app_name}.azurewebsites.net/health",
+      "expected_result": "200_OK",
+      "timeout_seconds": 120
+    },
+    {
+      "step": 5,
+      "action": "monitor_post_swap",
+      "description": "Monitor production metrics for 5 minutes post-swap",
+      "command": "az monitor metrics list --resource {app_name} --metric 'HttpResponseTime' --interval PT1M --timespan PT5M",
+      "expected_result": "stable_performance",
+      "timeout_seconds": 300
+    },
+    {
+      "step": 6,
+      "action": "create_incident_report",
+      "description": "Create incident report with diagnostics and remediation details",
+      "command": "echo 'Incident resolved via slot swap' > incident_report.txt",
+      "expected_result": "report_created",
+      "timeout_seconds": 30
+    }
+  ],
+  "rollback_steps": [
+    {
+      "step": 1,
+      "action": "rollback_slot_swap",
+      "description": "If post-swap monitoring fails, rollback to previous slot",
+      "command": "az webapp deployment slot swap --name {app_name} --resource-group {resource_group} --slot staging --target-slot production",
+      "timeout_seconds": 300
+    }
+  ],
+  "success_criteria": {
+    "response_time_threshold_ms": 1000,
+    "health_check_status": "Healthy",
+    "monitoring_duration_minutes": 5
+  },
+  "failure_criteria": {
+    "max_rollback_attempts": 2,
+    "escalation_threshold_minutes": 10
+  }
+}

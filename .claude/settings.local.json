@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Select-Object Id, ProcessName, CPU)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(az webapp log tail:*)",
+      "Bash(curl:*)",
+      "Bash(az webapp log config:*)",
+      "Bash(az webapp log download:*)",
+      "Bash(az webapp config appsettings set:*)",
+      "Bash(az webapp config appsettings list:*)",
+      "Bash(az webapp restart:*)",
+      "Bash(dotnet publish:*)",
+      "Bash(az webapp config show:*)",
+      "Bash(az webapp config set:*)",
+      "Bash(dotnet restore)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

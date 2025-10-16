@@ -1,0 +1,17 @@
+﻿{
+    "AppServiceUrl":  "https://deadlock-demo-app.azurewebsites.net",
+    "AppName":  "deadlock-demo-app",
+    "StagingUrl":  "https://deadlock-demo-app-staging.azurewebsites.net",
+    "AppInsightsConnectionString":  "InstrumentationKey=a745e9cf-7536-4b61-9f98-bf5e7f0e1a48;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/;ApplicationId=5058f60d-aecd-40b8-8ee3-b8ae1eebd6ce",
+    "DeploymentDate":  {
+                           "value":  "\/Date(1760558043520)\/",
+                           "DisplayHint":  2,
+                           "DateTime":  "Wednesday, October 15, 2025 9:54:03 PM"
+                       },
+    "ActionGroupName":  "deadlock-demo-app-action-group",
+    "WorkspaceName":  "deadlock-demo-workspace",
+    "ResourceGroupName":  "deadlock-demo-rg",
+    "BaselineAverageResponseTime":  168.19,
+    "BaselineP95ResponseTime":  null,
+    "BaselineMaxResponseTime":  430
+}
