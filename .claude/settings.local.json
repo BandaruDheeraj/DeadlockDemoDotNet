@@ -19,7 +19,15 @@
       "Bash(az webapp start:*)",
       "Bash(az webapp config appsettings delete:*)",
       "Bash(dotnet run:*)",
-      "Bash(bin/Debug/net9.0/DeadlockApp.exe --urls \"http://localhost:5003\")"
+      "Bash(bin/Debug/net9.0/DeadlockApp.exe --urls \"http://localhost:5003\")",
+      "Bash(python:*)",
+      "Bash(az monitor metrics alert list:*)",
+      "Bash(powershell:*)",
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File .5-generate-load.ps1)",
+      "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"cd ''''C:\\Users\\dbandaru\\OneDrive - Microsoft\\Desktop\\Projects\\sre-agent-test-apps\\DevDaysWarsawDemos\\DeadlockDemo\\scripts''''; & ''''.\\5-generate-load.ps1''''\")",
+      "Bash(powershell.exe -Command \"Get-Content ''C:\\Users\\dbandaru\\OneDrive - Microsoft\\Desktop\\Projects\\sre-agent-test-apps\\DevDaysWarsawDemos\\DeadlockDemo\\scripts\\5-generate-load.ps1'' -Encoding Byte -TotalCount 3 | ForEach-Object { ''{0:X2}'' -f $_}\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File .5-generate-load.ps1 -DurationMinutes 2 -ConcurrentUsers 3)",
+      "Bash(powershell.exe:*)"
     ],
     "deny": [],
     "ask": []

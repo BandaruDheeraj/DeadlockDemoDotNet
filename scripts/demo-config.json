@@ -13,5 +13,11 @@
     "ResourceGroupName":  "deadlock-demo-rg",
     "BaselineAverageResponseTime":  150.67,
     "BaselineP95ResponseTime":  null,
-    "BaselineMaxResponseTime":  566
+    "BaselineMaxResponseTime":  566,
+    "DeadlockDeployedToProduction":  true,
+    "ProductionSwapTime":  {
+                               "value":  "\/Date(1760638262335)\/",
+                               "DisplayHint":  2,
+                               "DateTime":  "Thursday, October 16, 2025 8:11:02 PM"
+                           }
 }

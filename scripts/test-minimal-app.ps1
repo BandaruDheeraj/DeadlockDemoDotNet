@@ -109,3 +109,4 @@ try {
 Write-Host "`nMinimal test complete!" -ForegroundColor Green
 Write-Host "If this works, the issue is with the complex health checks or Application Insights" -ForegroundColor Yellow
 Write-Host "If this fails, the issue is with basic ASP.NET Core startup" -ForegroundColor Yellow
+

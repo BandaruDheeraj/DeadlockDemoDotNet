@@ -1,4 +1,4 @@
-# Generate Load to Trigger Performance Degradation
+﻿# Generate Load to Trigger Performance Degradation
 param(
     [Parameter(Mandatory=$false)]
     [string]$ConfigPath = ".\demo-config.json",
@@ -7,10 +7,7 @@ param(
     [int]$DurationMinutes = 15,
     
     [Parameter(Mandatory=$false)]
-    [int]$ConcurrentUsers = 5,
-    
-    [Parameter(Mandatory=$false)]
-    [switch]$VerboseErrors
+    [int]$ConcurrentUsers = 5
 )
 
 Write-Host "🔥 Generating Load to Trigger Performance Degradation" -ForegroundColor Red
@@ -29,38 +26,14 @@ Write-Host "Production URL: $($config.AppServiceUrl)" -ForegroundColor White
 # Verify deadlock is enabled in production
 Write-Host "`n🔍 Verifying deadlock simulation is enabled..." -ForegroundColor Cyan
 try {
-    $health = Invoke-RestMethod -Uri "$($config.AppServiceUrl)/health" -Method Get -TimeoutSec 15
+    $health = Invoke-RestMethod -Uri "$($config.AppServiceUrl)/health" -Method Get -TimeoutSec 10
     Write-Host "Production Status: $($health.status)" -ForegroundColor White
-    
-    # Test a few endpoints to verify they're accessible
-    Write-Host "Testing endpoint accessibility..." -ForegroundColor Yellow
-    $testEndpoints = @("/api/products", "/api/products/1")
-    foreach ($testEndpoint in $testEndpoints) {
-        try {
-            $testResponse = Invoke-RestMethod -Uri "$($config.AppServiceUrl)$testEndpoint" -Method Get -TimeoutSec 10
-            Write-Host "  ✓ $testEndpoint - OK" -ForegroundColor Green
-        } catch {
-            Write-Host "  ✗ $testEndpoint - $($_.Exception.Message)" -ForegroundColor Red
-        }
-    }
-    
 } catch {
-    Write-Error "❌ Cannot reach production application: $($_.Exception.Message)"
-    Write-Host "This could indicate:" -ForegroundColor Yellow
-    Write-Host "- Application is not deployed" -ForegroundColor White
-    Write-Host "- Application is down" -ForegroundColor White
-    Write-Host "- Network connectivity issues" -ForegroundColor White
-    Write-Host "- URL is incorrect: $($config.AppServiceUrl)" -ForegroundColor White
+    Write-Error "❌ Cannot reach production application"
     exit 1
 }
 
 Write-Host "`n⚠️  Starting load generation - this will trigger performance degradation!" -ForegroundColor Red
-Write-Host "Expected behavior:" -ForegroundColor Yellow
-Write-Host '- Some requests will timeout (408 errors) - this is NORMAL for deadlock simulation' -ForegroundColor White
-Write-Host "- Response times will increase as deadlocks occur" -ForegroundColor White
-Write-Host "- Azure Monitor alerts should fire when thresholds are breached" -ForegroundColor White
-Write-Host "- Use -VerboseErrors switch to see detailed error messages" -ForegroundColor White
-
 $confirmation = Read-Host "Press Enter to start load generation (or Ctrl+C to cancel)"
 if ($confirmation -eq "q") {
     Write-Host "❌ Load generation cancelled" -ForegroundColor Yellow
@@ -79,7 +52,6 @@ $requestCount = 0
 $successCount = 0
 $timeoutCount = 0
 $responseTimes = @()
-$allResponseTimes = @()
 $startTime = Get-Date
 
 Write-Host "`n🚀 Load generation started at $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Green
@@ -90,7 +62,7 @@ Write-Host "Press Ctrl+C to stop early" -ForegroundColor Gray
 $jobs = @()
 for ($user = 1; $user -le $ConcurrentUsers; $user++) {
     $job = Start-Job -ScriptBlock {
-        param($ConfigUrl, $Scenarios, $StopTime, $UserId, $VerboseErrors)
+        param($ConfigUrl, $Scenarios, $StopTime, $UserId)
         
         $localRequestCount = 0
         $localSuccessCount = 0
@@ -120,9 +92,9 @@ for ($user = 1; $user -le $ConcurrentUsers; $user++) {
                     
                     if ($selectedScenario.Method -eq "POST") {
                         $body = @{ TestData = "LoadTest-$UserId-$localRequestCount" } | ConvertTo-Json
-                        $response = Invoke-RestMethod -Uri "$ConfigUrl$endpoint" -Method POST -Body $body -ContentType "application/json" -TimeoutSec 30
+                        $response = Invoke-RestMethod -Uri "$ConfigUrl$endpoint" -Method POST -Body $body -ContentType "application/json" -TimeoutSec 15
                     } else {
-                        $response = Invoke-RestMethod -Uri "$ConfigUrl$endpoint" -Method Get -TimeoutSec 20
+                        $response = Invoke-RestMethod -Uri "$ConfigUrl$endpoint" -Method Get -TimeoutSec 10
                     }
                     
                     $stopwatch.Stop()
@@ -131,29 +103,7 @@ for ($user = 1; $user -le $ConcurrentUsers; $user++) {
                     $localSuccessCount++
                     
                 } catch {
-                    $stopwatch.Stop()
-                    $responseTime = $stopwatch.ElapsedMilliseconds
-                    
-                    # Categorize different types of failures
-                    if ($_.Exception.Message -like "*408*" -or $_.Exception.Message -like "*timeout*") {
-                        # This is expected behavior for deadlock simulation
-                        $localTimeoutCount++
-                    } elseif ($_.Exception.Message -like "*500*" -or $_.Exception.Message -like "*502*" -or $_.Exception.Message -like "*503*") {
-                        # Server errors - also expected during deadlock
-                        $localTimeoutCount++
-                    } elseif ($_.Exception.Message -like "*404*") {
-                        # Endpoint not found - this would be unexpected
-                        if ($VerboseErrors) {
-                            Write-Warning "User $UserId - Endpoint not found: $endpoint"
-                        }
-                        $localTimeoutCount++
-                    } else {
-                        # Other errors
-                        if ($VerboseErrors) {
-                            Write-Warning "User $UserId - Unexpected error for $endpoint : $($_.Exception.Message)"
-                        }
-                        $localTimeoutCount++
-                    }
+                    $localTimeoutCount++
                 }
             }
             
@@ -167,7 +117,7 @@ for ($user = 1; $user -le $ConcurrentUsers; $user++) {
             TimeoutCount = $localTimeoutCount
             ResponseTimes = $localResponseTimes
         }
-    } -ArgumentList $config.AppServiceUrl, $loadScenarios, $stopTime, $user, $VerboseErrors
+    } -ArgumentList $config.AppServiceUrl, $loadScenarios, $stopTime, $user
     
     $jobs += $job
 }
@@ -195,6 +145,7 @@ while ((Get-Date) -lt $stopTime -and $jobs.Count -gt 0) {
         $totalRequests = 0
         $totalSuccesses = 0
         $totalTimeouts = 0
+        $allResponseTimes = @()
         
         foreach ($job in $jobs) {
             if ($job.State -eq "Completed") {
@@ -239,9 +190,9 @@ while ((Get-Date) -lt $stopTime -and $jobs.Count -gt 0) {
         }
         
         Write-Host "`n🔗 Monitor in Azure Portal:" -ForegroundColor Cyan
-        Write-Host "- Application Insights Live Metrics" -ForegroundColor Blue
-        Write-Host "- Azure Monitor Alerts" -ForegroundColor Blue
-        Write-Host "- App Service Metrics" -ForegroundColor Blue
+        Write-Host "• Application Insights Live Metrics" -ForegroundColor Blue
+        Write-Host "• Azure Monitor Alerts" -ForegroundColor Blue
+        Write-Host "• App Service Metrics" -ForegroundColor Blue
         
         $lastUpdateTime = $currentTime
     }
@@ -300,6 +251,7 @@ Write-Host "2. Check Azure Monitor alerts in the portal" -ForegroundColor White
 Write-Host "3. Monitor Application Insights for performance data" -ForegroundColor White
 
 Write-Host "`n🔗 Monitoring Links:" -ForegroundColor Cyan
-Write-Host "- Production Health: $($config.AppServiceUrl)/health" -ForegroundColor Blue
-Write-Host "- Orders Metrics: $($config.AppServiceUrl)/api/orders/metrics" -ForegroundColor Blue
-Write-Host "- Inventory Metrics: $($config.AppServiceUrl)/api/inventory/metrics" -ForegroundColor Blue
+Write-Host "• Production Health: $($config.AppServiceUrl)/health" -ForegroundColor Blue
+Write-Host "• Orders Metrics: $($config.AppServiceUrl)/api/orders/metrics" -ForegroundColor Blue
+Write-Host "• Inventory Metrics: $($config.AppServiceUrl)/api/inventory/metrics" -ForegroundColor Blue
+
